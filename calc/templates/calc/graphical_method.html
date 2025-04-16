@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriOptima | Farm Optimization Solution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #81C784;
+            --accent: #FFA000;
+            --dark: #263238;
+            --light: #ECEFF1;
+            --white: #FFFFFF;
+            --text-dark: #37474F;
+            --text-light: #78909C;
+            --border: #CFD8DC;
+            --error: #E53935;
+            --success: #43A047;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 0;
+        }
+
+        .app-container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-lg);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            min-height: calc(100vh - 4rem);
+        }
+
+        .app-sidebar {
+            flex: 0 0 40%;
+            background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: white;
+            position: relative;
+        }
+
+        .app-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(56, 142, 60, 0.85);
+            z-index: 0;
+        }
+
+        .sidebar-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .app-logo i {
+            margin-right: 0.8rem;
+            color: var(--accent);
+        }
+
+        .sidebar-header {
+            margin-bottom: auto;
+        }
+
+        .sidebar-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-features {
+            margin: 3rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-text {
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .app-main {
+            flex: 1;
+            background-color: var(--white);
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        .form-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .form-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.8rem;
+            color: var(--accent);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -1rem;
+        }
+
+        .form-group {
+            flex: 1 0 calc(50% - 2rem);
+            margin: 0 1rem 1.5rem;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto 0;
+            display: block;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-submit i {
+            margin-right: 0.8rem;
+        }
+
+        .error {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .error i {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .input-hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+            
+            .app-sidebar {
+                flex: 0 0 auto;
+                padding: 2rem;
+            }
+            
+            .app-main {
+                padding: 2rem;
+            }
+            
+            .form-group {
+                flex: 1 0 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-title {
+                font-size: 2rem;
+            }
+            
+            .form-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-sidebar">
+            <div class="sidebar-content">
+                
+                <div class="sidebar-header animate-in delay-1">
+                    <h1 class="sidebar-title">Optimize Your Farm's Potential</h1>
+                    <p class="sidebar-subtitle">Maximize yields and profits through intelligent resource allocation</p>
+                </div>
+                
+                <div class="sidebar-features">
+                    <div class="feature-item animate-in delay-2">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="feature-text">Increase profitability by up to 30%</div>
+                    </div>
+                    
+                    <div class="feature-item animate-in delay-2">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="feature-text">Optimize labor efficiency</div>
+                    </div>
+                    
+                    <div class="feature-item animate-in delay-2">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="feature-text">Better land utilization</div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-footer animate-in delay-3">
+                    © 2025| Farm Optimization Solution
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-main">
+            <div class="form-header animate-in">
+                <h2 class="form-title">Agricultural Resource Planner</h2>
+                <p class="form-subtitle">Enter your operation details to get optimized planting recommendations</p>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="error animate-in">
+                        <i class="fas fa-exclamation-circle"></i>
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="form-section animate-in delay-1">
+                    <h3 class="section-title"><i class="fas fa-tractor"></i> Operational Assets</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="{{ form.land_available.id_for_label }}">Cultivable Area</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-map-marked-alt input-icon"></i>
+                                {{ form.land_available }}
+                            </div>
+                            {% if form.land_available.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.land_available.errors }}
+                                </div>
+                            {% endif %}
+                            <p class="input-hint">Total cultivable area in acres</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.labor_available.id_for_label }}">Workforce Capacity</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-users input-icon"></i>
+                                {{ form.labor_available }}
+                            </div>
+                            {% if form.labor_available.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.labor_available.errors }}
+                                </div>
+                            {% endif %}
+                            <p class="input-hint">Total workforce hours available</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section animate-in delay-2">
+                    <h3 class="section-title"><i class="fas fa-seedling"></i> Main Cultivation</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="{{ form.crop1.id_for_label }}">Primary Cultivar</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-leaf input-icon"></i>
+                                {{ form.crop1 }}
+                            </div>
+                            {% if form.crop1.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.crop1.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.profit_crop1.id_for_label }}">Projected Revenue</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-dollar-sign input-icon"></i>
+                                {{ form.profit_crop1 }}
+                            </div>
+                            {% if form.profit_crop1.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.profit_crop1.errors }}
+                                </div>
+                            {% endif %}
+                            <p class="input-hint">Projected revenue per acre ($)</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.labor_crop1.id_for_label }}">Workforce Requirement</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user-clock input-icon"></i>
+                                {{ form.labor_crop1 }}
+                            </div>
+                            {% if form.labor_crop1.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.labor_crop1.errors }}
+                                </div>
+                            {% endif %}
+                            <p class="input-hint">Hours required per acre</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section animate-in delay-3">
+                    <h3 class="section-title"><i class="fas fa-seedling"></i> Secondary Cultivation</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="{{ form.crop2.id_for_label }}">Secondary Cultivar</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-leaf input-icon"></i>
+                                {{ form.crop2 }}
+                            </div>
+                            {% if form.crop2.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.crop2.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.profit_crop2.id_for_label }}">Projected Revenue</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-dollar-sign input-icon"></i>
+                                {{ form.profit_crop2 }}
+                            </div>
+                            {% if form.profit_crop2.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.profit_crop2.errors }}
+                                </div>
+                            {% endif %}
+                            <p class="input-hint">Projected revenue per acre ($)</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ form.labor_crop2.id_for_label }}">Workforce Requirement</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user-clock input-icon"></i>
+                                {{ form.labor_crop2 }}
+                            </div>
+                            {% if form.labor_crop2.errors %}
+                                <div class="error">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form.labor_crop2.errors }}
+                                </div>
+                            {% endif %}
+                            <p class="input-hint">Hours required per acre</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit animate-in delay-3">
+                    <i class="fas fa-calculator"></i> Generate Optimal Plan
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add focus effects to inputs
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.querySelector('.input-icon').style.color = 'var(--primary-dark)';
+                    this.parentElement.parentElement.querySelector('label').style.color = 'var(--primary-dark)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.querySelector('.input-icon').style.color = 'var(--primary)';
+                    this.parentElement.parentElement.querySelector('label').style.color = 'var(--text-dark)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

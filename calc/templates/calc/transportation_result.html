@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid py-5" style="background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+                <div class="card shadow border-0 rounded-lg overflow-hidden" style="border-top: 5px solid #0288d1;">
+                    <div class="card-header py-4" style="background: linear-gradient(135deg, #0288d1 0%, #01579b 100%);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="mb-0 text-white"><i class="fas fa-truck mr-2"></i> CropConnect Transportation Result</h2>
+                            <span class="badge badge-light" style="color: #01579b;">AI Optimized</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="p-5" style="background-color: #f0f9ff;">
+                            <h4 class="mb-4" style="color: #0277bd;"><i class="fas fa-tags mr-2"></i>Transportation Input Parameters</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="p-4 mb-4 rounded shadow-sm" style="background-color: #e1f5fe;">
+                                        <h5 class="font-weight-bold" style="color: #0288d1;">{{ problem.source1_name }}</h5>
+                                        <div class="d-flex justify-content-between">
+                                            <span><i class="fas fa-warehouse mr-1"></i> Supply:</span>
+                                            <span class="font-weight-bold" style="color: #01579b;">{{ problem.source1_supply }} units</span>
+                                        </div>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar" style="width: 60%; background-color: #0288d1;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-4 mb-4 rounded shadow-sm" style="background-color: #e0f2f1;">
+                                        <h5 class="font-weight-bold" style="color: #00796b;">{{ problem.source2_name }}</h5>
+                                        <div class="d-flex justify-content-between">
+                                            <span><i class="fas fa-truck mr-1"></i> Supply:</span>
+                                            <span class="font-weight-bold" style="color: #004d40;">{{ problem.source2_supply }} units</span>
+                                        </div>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar" style="width: 40%; background-color: #00796b;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="p-3 mb-3 rounded shadow-sm" style="background-color: #e3f2fd;">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="font-weight-bold" style="color: #0288d1;"><i class="fas fa-map-marked-alt mr-2"></i>Demand</span>
+                                            <span>{{ problem.destination_demand }} units</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 mb-3 rounded shadow-sm" style="background-color: #e0f7fa;">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="font-weight-bold" style="color: #00796b;"><i class="fas fa-shipping-fast mr-2"></i>Transport Cost</span>
+                                            <span>{{ problem.transport_cost }} ₹/unit</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 mb-3 rounded shadow-sm" style="background-color: #e0f2f1;">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="font-weight-bold" style="color: #004d40;"><i class="fas fa-cogs mr-2"></i>Transportation Time</span>
+                                            <span>{{ problem.transport_time }} hours/unit</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-5" style="background-color: #ffffff;">
+                            <h4 class="mb-4" style="color: #0277bd;"><i class="fas fa-chart-line mr-2"></i>Optimal Transportation Plan</h4>
+
+                            <div class="alert border-0 shadow-sm" style="background-color: #e0f7fa; border-left: 4px solid #0288d1;">
+                                <div class="d-flex align-items-center">
+                                    <div class="mr-3"><i class="fas fa-award fa-2x" style="color: #ffc107;"></i></div>
+                                    <div>
+                                        <h5 class="mb-1" style="color: #00796b;">Minimum Transport Cost</h5>
+                                        <h3 class="mb-0" style="color: #004d40;">₹{{ problem.min_cost|floatformat:2 }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="p-4 mb-4 rounded shadow-sm" style="background-color: #e1f5fe;">
+                                        <h5 class="font-weight-bold" style="color: #0288d1;"><i class="fas fa-truck mr-2"></i>{{ problem.source1_name }}</h5>
+                                        <div class="d-flex justify-content-between">
+                                            <span>Sent to:</span>
+                                            <span class="font-weight-bold">{{ problem.source1_sent }} units</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <span>Cost:</span>
+                                            <span class="font-weight-bold">₹{{ problem.source1_cost }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="p-4 mb-4 rounded shadow-sm" style="background-color: #e0f2f1;">
+                                        <h5 class="font-weight-bold" style="color: #00796b;"><i class="fas fa-truck mr-2"></i>{{ problem.source2_name }}</h5>
+                                        <div class="d-flex justify-content-between">
+                                            <span>Sent to:</span>
+                                            <span class="font-weight-bold">{{ problem.source2_sent }} units</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <span>Cost:</span>
+                                            <span class="font-weight-bold">₹{{ problem.source2_cost }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4 mb-3" style="color: #0277bd;"><i class="fas fa-pie-chart mr-2"></i>Resource Usage</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="p-3 rounded mb-3 shadow-sm" style="background-color: #f0f9ff;">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-weight-bold" style="color: #0288d1;"><i class="fas fa-map-marked-alt mr-1"></i>Supply from Source 1</span>
+                                            <span>{{ problem.source1_sent }} / {{ problem.source1_supply }} units</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar" style="width: 0%; background-color: #0288d1;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 rounded mb-3 shadow-sm" style="background-color: #e0f7fa;">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-weight-bold" style="color: #00796b;"><i class="fas fa-shipping-fast mr-1"></i>Cost</span>
+                                            <span>{{ problem.transport_cost }} ₹/unit</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar" style="width: 0%; background-color: #00796b;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-5">
+                                <a href="{% url 'transportation_method' %}" class="btn btn-lg px-5 py-3 shadow" style="background-color: #0288d1; color: white;">
+                                    <i class="fas fa-calculator mr-2"></i> New Transport Plan
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mt-4 border-0" style="background-color: #f0f9ff;">
+                        <div class="card-body p-4">
+                            <h5 class="mb-3" style="color: #0277bd;"><i class="fas fa-lightbulb mr-2"></i>Smart Tips</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex">
+                                        <div class="mr-3" style="color: #0288d1;"><i class="fas fa-truck fa-2x"></i></div>
+                                        <div>
+                                            <h6 class="font-weight-bold">Optimize Routes</h6>
+                                            <p class="small">Consider alternate routes to reduce transport cost.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex">
+                                        <div class="mr-3" style="color: #00796b;"><i class="fas fa-cogs fa-2x"></i></div>
+                                        <div>
+                                            <h6 class="font-weight-bold">Transport Scheduling</h6>
+                                            <p class="small">Schedule trips based on demand to reduce waiting time.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex">
+                                        <div class="mr-3" style="color: #004d40;"><i class="fas fa-chart-line fa-2x"></i></div>
+                                        <div>
+                                            <h6 class="font-weight-bold">Supply Chain Management</h6>
+                                            <p class="small">Improve coordination for better resource distribution.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ... (same script as before)
+</script>
+{% endblock %}

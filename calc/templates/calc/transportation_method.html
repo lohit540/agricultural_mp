@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid py-5" style="background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%); min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-11">
+                <div class="card shadow border-0 rounded-lg overflow-hidden" style="border-top: 5px solid #0288d1;">
+                    <div class="card-header py-4" style="background: linear-gradient(135deg, #0288d1 0%, #01579b 100%);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="mb-0 text-white"><i class="fas fa-truck mr-2"></i> CropConnect Transportation </h2>
+                            <span class="badge badge-light" style="color: #01579b;">AI Optimized</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="p-5" style="background-color: #f0f9ff;">
+                            <h4 class="mb-4" style="color: #0277bd;"><i class="fas fa-tags mr-2"></i>Transportation Problem Input Parameters</h4>
+                            <form method="POST" action="{% url 'transportation_result' %}">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="source1">Source 1</label>
+                                            <input type="text" class="form-control" id="source1" name="source1" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="source1_supply">Supply</label>
+                                            <input type="number" class="form-control" id="source1_supply" name="source1_supply" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="source2">Source 2</label>
+                                            <input type="text" class="form-control" id="source2" name="source2" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="source2_supply">Supply</label>
+                                            <input type="number" class="form-control" id="source2_supply" name="source2_supply" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="destination1">Destination 1</label>
+                                            <input type="text" class="form-control" id="destination1" name="destination1" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="destination1_demand">Demand</label>
+                                            <input type="number" class="form-control" id="destination1_demand" name="destination1_demand" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="destination2">Destination 2</label>
+                                            <input type="text" class="form-control" id="destination2" name="destination2" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="destination2_demand">Demand</label>
+                                            <input type="number" class="form-control" id="destination2_demand" name="destination2_demand" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="destination3">Destination 3</label>
+                                            <input type="text" class="form-control" id="destination3" name="destination3" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="destination3_demand">Demand</label>
+                                            <input type="number" class="form-control" id="destination3_demand" name="destination3_demand" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-5">
+                                    <button type="submit" class="btn btn-lg px-5 py-3 shadow" style="background-color: #0288d1; color: white;">
+                                        <i class="fas fa-calculator mr-2"></i> Calculate Transport Plan
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        {% if result %}
+                        <div class="p-5" style="background-color: #ffffff;">
+                            <h4 class="mb-4" style="color: #0277bd;"><i class="fas fa-chart-line mr-2"></i>Optimal Transport Plan</h4>
+                            <div class="alert border-0 shadow-sm" style="background-color: #e0f7fa; border-left: 4px solid #0288d1;">
+                                <div class="d-flex align-items-center">
+                                    <div class="mr-3"><i class="fas fa-award fa-2x" style="color: #ffc107;"></i></div>
+                                    <div>
+                                        <h5 class="mb-1" style="color: #00796b;">Minimum Cost</h5>
+                                        <h3 class="mb-0" style="color: #004d40;">₹{{ result.min_cost|floatformat:2 }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional result displays here -->
+
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
